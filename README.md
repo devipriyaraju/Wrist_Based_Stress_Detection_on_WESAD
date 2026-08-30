@@ -22,12 +22,12 @@ generalizes *better* than a gradient-boosted one.
 | Chance (majority-class macro-F1) | 0.24 |
 
 - **Leakage is model-dependent.** Gradient boosting looks far better than logistic regression under random
-  splitting (0.86 vs 0.69) but generalizes no better (0.59 vs 0.61). Capacity buys leakage, not generalization —
+  splitting (0.86 vs 0.69) but generalizes no better (0.59 vs 0.61). Capacity buys leakage, not generalization -
   the random−LOSO gap is 0.28 for boosting vs 0.08 for logistic regression.
 - **Subject identity is the leak.** Baseline signals are dominated by *who the person is*: ICC 0.85 (EDA),
   0.95 (skin temperature). Random splits let the model recognise the subject; LOSO exposes it.
 - **Simpson's paradox is the mechanism.** `eda_mean` vs `temp_mean` correlates **+0.18 pooled but −0.25
-  within-subject** — a sign reversal from between-subject offsets. Removing that offset (per-user z-scoring)
+  within-subject** - a sign reversal from between-subject offsets. Removing that offset (per-user z-scoring)
   improves LOSO for **13/15 subjects (median +0.17, Wilcoxon p = 0.008)**.
 - **...but calibration is not universally safe.** Two already-easy subjects got *worse* under normalization
   (S14 0.81→0.35), so the recommendation is population-level, not guaranteed per user.
@@ -67,6 +67,6 @@ python -c "from src.features import build_feature_matrix; build_feature_matrix()
 - **Non-overlapping windows + label-purity gating**: boundary-straddling windows dropped, not majority-voted.
 - **Fold-fit scaling + LOSO** everywhere: no normalization or subject leakage into the numbers.
 - **Label-free per-user calibration** (z-score by each user's own rest stats): no target leakage.
-- **Dependency-free statistics** (RM-ANOVA/FDR/VIF), validated against statsmodels — no extra cluster installs.
+- **Dependency-free statistics** (RM-ANOVA/FDR/VIF), validated against statsmodels - no extra cluster installs.
 
-*Data: WESAD (Schmidt et al., ICMI 2018). Not redistributed — download from the source.*
+*Data: WESAD (Schmidt et al., ICMI 2018). Not redistributed - download from the source.*
