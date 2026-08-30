@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+data/            # raw WESAD (download separately; not redistributed)
+outputs/tables/*.csv
+!outputs/tables/.gitkeep
+.venv/
