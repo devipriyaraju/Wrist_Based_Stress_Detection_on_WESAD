@@ -43,7 +43,7 @@ because of class imbalance.
 - Prefer the simple regularized linear model + per-user calibration: it generalizes better than the flexible
   model and is interpretable.
 
-## Update — calibration significance & safety (paired analysis)
+## Update - calibration significance & safety (paired analysis)
 Per-user normalization improves LOSO macro-F1 for **13/15 subjects** (median Δ +0.17; Wilcoxon signed-rank
 one-sided p = 0.008; paired t p = 0.022, weaker because it is dragged by one outlier, so Wilcoxon is primary).
 **However, calibration is not universally beneficial:** two already-separable subjects degraded (S14 0.81→0.35,
