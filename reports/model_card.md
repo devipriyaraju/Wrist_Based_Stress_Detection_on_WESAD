@@ -1,4 +1,4 @@
-# Model Card — WESAD Wrist Stress Detection
+# Model Card - WESAD Wrist Stress Detection
 
 ## Intended use
 Research / portfolio demonstration of rigorous evaluation for wearable affect detection. **Not** a medical
@@ -12,7 +12,7 @@ Class balance: baseline 283 / stress 155 / amusement 82.
 
 ## Features
 16 trusted features: EDA (level, variability, slope, SCR rate), TEMP (level, variability, slope), HR mean,
-ACC (variance/energy — not mean, which is dominated by gravity). Evaluated with macro-F1 and balanced accuracy
+ACC (variance/energy, not mean, which is dominated by gravity). Evaluated with macro-F1 and balanced accuracy
 because of class imbalance.
 
 ## Performance (leave-one-subject-out; the estimate)
@@ -27,7 +27,7 @@ because of class imbalance.
    Only leave-one-subject-out reflects generalization to new people. Baseline ICC 0.85 (EDA) / 0.95 (TEMP).
 2. **Motion confound.** The stress protocol (TSST) involves standing/speaking; motion-only features reach
    macro-F1 0.52 vs chance 0.24. Part of "stress detection" is motion detection, which will not transfer to
-   someone stressed while still — a real distribution-shift risk.
+   someone stressed while still, a real distribution-shift risk.
 3. **HRV unreliable on E4 wrist PPG.** Beat-to-beat HRV was physiologically implausible even after
    quality-gating; excluded from the model. HRV is also missing-not-at-random (absent on ~90% of stress
    windows because motion degrades PPG), so it must not be imputed.
@@ -45,9 +45,9 @@ because of class imbalance.
 
 ## Update — calibration significance & safety (paired analysis)
 Per-user normalization improves LOSO macro-F1 for **13/15 subjects** (median Δ +0.17; Wilcoxon signed-rank
-one-sided p = 0.008; paired t p = 0.022 — weaker because it is dragged by one outlier, so Wilcoxon is primary).
+one-sided p = 0.008; paired t p = 0.022, weaker because it is dragged by one outlier, so Wilcoxon is primary).
 **However, calibration is not universally beneficial:** two already-separable subjects degraded (S14 0.81→0.35,
 S17 0.65→0.57). Per-user z-scoring can compress between-condition signal for subjects who were already easy in
 raw feature space. The recommendation to calibrate is therefore population-level, and a deployment should
 monitor per-user performance rather than assume calibration always helps. A realistic rest-period calibration
-(~10 min) recovers most of the idealized gain (~0.73 vs 0.75); shorter calibration (3–5 min) does not.
+(~10 min) recovers most of the idealized gain (~0.73 vs 0.75); shorter calibration (3-5 min) does not.
